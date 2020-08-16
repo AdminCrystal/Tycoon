@@ -11,11 +11,11 @@ func _ready():
 	#gets players controls and applies them
 	var controls = getControls()
 	setControls(controls)
-	setControls("defaultControls.controls")
+	
 	
 
 func _input(event):
-	if event.is_action_pressed('chat'):
+	if event.is_action_pressed('attack'):
 		print("test worked")
 	
 
@@ -72,13 +72,14 @@ func createDvorakControls():
 		"hotbar7": "7",
 		"hotbar8": "8",
 		"hotbar9": "9",
-		"chat": "Enter"
+		"chat": "Enter",
+		
 		
 	}
 	saveControls.store_line(to_json(saveDict))
 	saveControls.close()	
 
-
+	
 
 #recreates fresh standard controls every time they open the game
 func createStandardControls():
