@@ -1,0 +1,108 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://TycoonBase/TycoonBase.gd" type="Script" id=1]
+[ext_resource path="res://TycoonBase/Player.tscn" type="PackedScene" id=2]
+
+[sub_resource type="CubeMesh" id=1]
+
+[sub_resource type="ConcavePolygonShape" id=2]
+data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="CubeMesh" id=4]
+material = SubResource( 3 )
+
+[sub_resource type="CubeMesh" id=5]
+
+[node name="TycoonBase" type="Spatial"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+color = Color( 0.164706, 0.152941, 0.556863, 1 )
+
+[node name="FirstFloor" type="Spatial" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Floor" type="Spatial" parent="FirstFloor"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Floor" type="MeshInstance" parent="FirstFloor/Floor" groups=[
+"Colored",
+]]
+transform = Transform( 24, 0, 0, 0, 0.33, 0, 0, 0, 18, 0, 0.33, 0 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="StaticBody" type="StaticBody" parent="FirstFloor/Floor/Floor"]
+
+[node name="CollisionShape" type="CollisionShape" parent="FirstFloor/Floor/Floor/StaticBody"]
+shape = SubResource( 2 )
+
+[node name="Door" type="Spatial" parent="FirstFloor"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="LeftPillar" type="MeshInstance" parent="FirstFloor/Door"]
+transform = Transform( 0.33, 0, 0, 0, 2.5, 0, 0, 0, 0.33, -2, 3.16, 17.7187 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="RightPillar" type="MeshInstance" parent="FirstFloor/Door"]
+transform = Transform( 0.33, 0, 0, 0, 2.5, 0, 0, 0, 0.33, 2, 3.16, 17.7187 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="TopPillar" type="MeshInstance" parent="FirstFloor/Door"]
+transform = Transform( -5.37638e-08, -2.384, 0, 0.33, -3.88403e-07, 0, 0, 0, 0.33, -0.00091809, 5.99384, 17.7226 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="Wall1" type="Spatial" parent="FirstFloor"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="EntranceLeft" type="MeshInstance" parent="FirstFloor/Wall1" groups=[
+"Colored",
+]]
+transform = Transform( 10.9473, 0, 0, 0, 0.75, 0, 0, 0, 0.33, -13.0091, 1.41, 17.6686 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="EntranceRight" type="MeshInstance" parent="FirstFloor/Wall1" groups=[
+"Colored",
+]]
+transform = Transform( 10.9473, 0, 0, 0, 0.75, 0, 0, 0, 0.33, 13.0304, 1.41, 17.6686 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="Wall2" type="Spatial" parent="FirstFloor"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Wall3" type="Spatial" parent="FirstFloor"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Wall4" type="Spatial" parent="FirstFloor"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Windows" type="Spatial" parent="FirstFloor"]
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27407, 0 )
