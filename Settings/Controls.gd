@@ -15,7 +15,7 @@ func _ready():
 	
 
 func _input(event):
-	if event.is_action_pressed('attack'):
+	if event.is_action_pressed('interact'):
 		print("test worked")
 	
 
@@ -73,7 +73,7 @@ func createDvorakControls():
 		"hotbar8": "8",
 		"hotbar9": "9",
 		"chat": "Enter",
-		
+		"interact": "Period"
 		
 	}
 	saveControls.store_line(to_json(saveDict))
@@ -103,7 +103,8 @@ func createStandardControls():
 		"hotbar7": "7",
 		"hotbar8": "8",
 		"hotbar9": "9",
-		"chat": "Enter"
+		"chat": "Enter",
+		"interact": "e"
 	
 	}
 	saveControls.store_line(to_json(saveDict))
