@@ -18,22 +18,22 @@ func _ready():
 	
 
 func _input(event):
-	if event.is_action_pressed("panAround"):
+	if event.is_action_pressed("rightClick"):
 		var location = event.position
 		$CameraBase.rotate_y(5)
 		print("yuh")
 		
-	if event.is_action_pressed("upArrow"):
+	if event.is_action_pressed("k"):
 		print("1")
-	if event.is_action_pressed("leftArrow"):
+	if event.is_action_pressed("a"):
 		print("2")
-	if event.is_action_pressed("downArrow"):
+	if event.is_action_pressed("j"):
 		print("3")
-	if event.is_action_pressed("rightArrow"):
+	if event.is_action_pressed("delete"):
 		print("4")
 		
 	
-		
+
 func _unhandled_key_input(event):
 	if event.is_action_pressed("menu"):
 		Menu.visible = !Menu.visible

@@ -1,9 +1,7 @@
 extends Control
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -17,13 +15,13 @@ func _ready():
 
 
 func _on_StandardControls_pressed():
-	Controls.setControls("standardControls.controls")
+	Controls.setControls("user://standardControls.controls")
 	Controls.setPreference("controlsFile", "standardControls.controls")
 
 
 func _on_DvorakControls_pressed():
-	Controls.setControls("dvorakControls.controls")
-	Controls.setPreference("controlsFile", "dvorakControls.controls")
+	Controls.setControls("user://dvorakControls.controls")
+	Controls.changePreference("controlsFile", "dvorakControls.controls")
 
 func _on_BackButton_pressed():
 	Menu.visible = true
@@ -32,3 +30,9 @@ func _on_BackButton_pressed():
 
 func _on_CloseMenus_pressed():
 	ControlsMenu.visible = false
+
+
+func _on_testButton_pressed():
+	var controlsFile = "user://customControls.controls"
+	Controls.changeControl("b", "c", controlsFile)
+	Controls.changePreference("controlsFile", controlsFile)
