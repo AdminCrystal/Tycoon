@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Alata-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Menus/Menu.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 26
+font_data = ExtResource( 1 )
+
+[node name="Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ChangeControls" type="Button" parent="."]
+margin_left = 225.665
+margin_top = 97.0045
+margin_right = 767.665
+margin_bottom = 196.005
+custom_fonts/font = SubResource( 1 )
+text = "Change Controls"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" type="Button" parent="."]
+margin_left = 229.67
+margin_top = 359.968
+margin_right = 771.67
+margin_bottom = 458.968
+custom_fonts/font = SubResource( 1 )
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CloseMenu" type="Button" parent="."]
+margin_left = 947.736
+margin_top = 2.66968
+margin_right = 1022.74
+margin_bottom = 63.6697
+text = "X"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="ChangeControls" to="." method="_on_ChangeControls_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="CloseMenu" to="." method="_on_CloseMenu_pressed"]

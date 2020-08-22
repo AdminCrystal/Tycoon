@@ -7,6 +7,9 @@
 [sub_resource type="BoxShape" id=2]
 
 [node name="Player" type="Spatial"]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="KinematicBody" type="KinematicBody" parent="."]
 script = ExtResource( 1 )
@@ -20,5 +23,7 @@ material/0 = null
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.03455, 0 )
 shape = SubResource( 2 )
 
-[node name="Camera" type="Camera" parent="KinematicBody"]
+[node name="CameraBase" type="Spatial" parent="KinematicBody"]
+
+[node name="Camera" type="Camera" parent="KinematicBody/CameraBase"]
 transform = Transform( 1, 0, 0, 0, 0.920927, 0.389735, 0, -0.389735, 0.920927, 0, 7.12951, 10.3348 )

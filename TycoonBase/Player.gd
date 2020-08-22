@@ -10,22 +10,46 @@ const DE_ACCELERATION = 5
 
 
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	camera = $Camera.get_global_transform()
+	camera = $CameraBase/Camera.get_global_transform()
+	Menu.visible = false
+	ControlsMenu.visible = false
+	
 
-
+func _input(event):
+	if event.is_action_pressed("panAround"):
+		var location = event.position
+		$CameraBase.rotate_y(5)
+		print("yuh")
+		
+	if event.is_action_pressed("upArrow"):
+		print("1")
+	if event.is_action_pressed("leftArrow"):
+		print("2")
+	if event.is_action_pressed("downArrow"):
+		print("3")
+	if event.is_action_pressed("rightArrow"):
+		print("4")
+		
+	
+		
+func _unhandled_key_input(event):
+	if event.is_action_pressed("menu"):
+		Menu.visible = !Menu.visible
+		ControlsMenu.visible = false
+		
+		
 
 func _physics_process(delta):
 	var dir = Vector3()
-	if Input.is_action_pressed("move_forward"):
+	if Input.is_action_pressed("moveForward"):
 		dir += -camera.basis[2]
-	if Input.is_action_pressed("move_backward"):
+	if Input.is_action_pressed("moveBackward"):
 		dir += camera.basis[2]
-	if Input.is_action_pressed("move_left"):
+	if Input.is_action_pressed("moveLeft"):
 		dir += -camera.basis[0]
-	if Input.is_action_pressed("move_right"):
+	if Input.is_action_pressed("moveRight"):
 		dir += camera.basis[0]
 	
 	dir.y = 0
