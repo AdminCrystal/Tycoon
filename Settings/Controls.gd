@@ -32,64 +32,75 @@ func createCustom3():
 	
 	
 func createPreferences():
-	var preferences = File.new()
-	preferences.open("user://preferences.settings", File.WRITE)
+	var file = File.new()
+	file.open("user://preferences.settings", File.WRITE)
 	var saveDict = {
 		"filename" : "preferences",
 		"controlsFile": "user://dvorakControls.controls"
 		
 	}
-	preferences.store_line(to_json(saveDict))
-	preferences.close()
+	file.store_line(to_json(saveDict))
+	file.close()
 	
 	
 
 
 func changePreference(key: String, value: String):
 	#gets dictionary data then closes
-	var preferences = File.new()
-	preferences.open("user://preferences.settings", File.READ)
-	var data: Dictionary = parse_json(preferences.get_line())
-	preferences.close()
+	var file = File.new()
+	file.open("user://preferences.settings", File.READ)
+	var data: Dictionary = parse_json(file.get_line())
+	file.close()
 	
 	
-	preferences.open("user://preferences.settings", File.WRITE)
+	file.open("user://preferences.settings", File.WRITE)
 	data[key] = value	
-	preferences.store_line(to_json(data))
-	preferences.close()
+	file.store_line(to_json(data))
+	file.close()
 	
 	
 
 func changeControl(key: String, value: String, controlsFile: String):
-	var file: File = File.new()
-	var _open
+	var file = File.new()
+	
 	var controls: Dictionary
+	
+	
 	if not file.file_exists(controlsFile):
-		_open = file.open("user://preferences.settings", File.READ)
+		#gets current controls file
+		file.open("user://preferences.settings", File.READ)
 		controls = parse_json(file.get_line())
 		file.close()
-		_open = file.open(controls.controlsFile, File.READ)
+		
+		
+		#opens that file and copys its json
+		file.open(controls.controlsFile, File.READ)
 		controls = parse_json(file.get_line())
-		_open = file.open(controlsFile, File.WRITE)
-	else:		
-		_open = file.open(controlsFile, File.READ)
+		file.close()
+		
+		
+		#creates new customControls file
+		file.open(controlsFile, File.WRITE)
+	else:	
+		#opens custom controls file and copys its json	
+		file.open(controlsFile, File.READ)
 		controls = parse_json(file.get_line())
 	file.close()
+	
+	
 	controls[key] = value
-	_open = file.open(controlsFile, File.WRITE)
+	file.open(controlsFile, File.WRITE)
 	file.store_line(to_json(controls))
 	file.close()
 	controls.clear()
 	
 	
 
-
-
 #recreates a fresh dvorak control when they open the game
 func createDvorakControls():
-	var saveControls = File.new()
+	var file = File.new()
 	#if not saveControls.file_exists("user://preferences.settings"):
-	saveControls.open("user://dvorakControls.controls", File.WRITE)
+	file.open("user://dvorakControls.controls", File.WRITE)
 	var saveDict = {
 		#Defaults
 		"moveForward": "Comma",
@@ -240,19 +251,17 @@ func createDvorakControls():
 		"end": "End",
 		
 	}
-	saveControls.store_line(to_json(saveDict))
-	saveControls.close()	
+	file.store_line(to_json(saveDict))
+	file.close()	
 	saveDict.clear()
-	
-	
 	
 	
 
 #recreates fresh standard controls every time they open the game
 func createStandardControls():
-	var saveControls = File.new()
+	var file = File.new()
 	#if not saveControls.file_exists("user://preferences.settings"):
-	saveControls.open("user://standardControls.controls", File.WRITE)
+	file.open("user://standardControls.controls", File.WRITE)
 	var saveDict = {
 		"moveForward": "w",
 		"moveLeft": "a",
@@ -334,8 +343,8 @@ func createStandardControls():
 		"i": "i",
 		"o": "o",
 		"p": "p",
-		"leftBrace": "LeftBrace",
-		"rightBrace": "RightBrace",
+		"leftBrace": "BraceLeft",
+		"rightBrace": "BraceRight",
 		"backSlash": "BackSlash",
 		#End Row 2
 		
@@ -403,24 +412,25 @@ func createStandardControls():
 		
 		
 	}
-	saveControls.store_line(to_json(saveDict))
-	saveControls.close()
+	file.store_line(to_json(saveDict))
+	file.close()
 	saveDict.clear()
 	
-
+	
 
 #gets which control file holds their controls
 func getControls() -> String:
-	var controls = File.new()
+	var file = File.new()
 	#checks to make sure if file exists and if it
 	#doesnt creates a new one, theoretically 'impossible'
-	if not controls.file_exists("user://preferences.settings"):
+	if not file.file_exists("user://preferences.settings"):
 		createPreferences()
-	controls.open("user://preferences.settings", File.READ)
-	var data = parse_json(controls.get_line())
+	file.open("user://preferences.settings", File.READ)
+	var data = parse_json(file.get_line())
 	
 	var location = data.controlsFile
-	controls.close()
+	file.close()
+	data.clear()
 	return location
 
 
@@ -448,27 +458,21 @@ func setControls(filepath: String):
 		if keyCode.scancode != 0:
 			pass
 		else:
+			keyCode = InputEventMouseButton.new()
 			match control.values()[i]:
 				"LeftClick": 
-					keyCode = InputEventMouseButton.new()
 					keyCode.button_index = BUTTON_LEFT
 				"RightClick":
-					keyCode = InputEventMouseButton.new()
 					keyCode.button_index = BUTTON_RIGHT
 				"MiddleClick":
-					keyCode = InputEventMouseButton.new()
 					keyCode.button_index = BUTTON_MIDDLE
 				"ScrollWheelUp":
-					keyCode = InputEventMouseButton.new()
 					keyCode.button_index = BUTTON_WHEEL_UP
 				"ScrollWheelDown":
-					keyCode = InputEventMouseButton.new()
 					keyCode.button_index = BUTTON_WHEEL_DOWN
 				"ScrollWheelLeft":
-					keyCode = InputEventMouseButton.new()
 					keyCode.button_index = BUTTON_WHEEL_LEFT
 				"ScrollWheelRight":
-					keyCode = InputEventMouseButton.new()
 					keyCode.button_index = BUTTON_WHEEL_RIGHT
 				_:	
 					print("Error on control creation key = " + control.values()[i])
@@ -479,17 +483,8 @@ func setControls(filepath: String):
 		
 	
 	file.close()
+	control.clear()
 	
-	
-
-
-
-
-
-
-
-
-
 
 
 

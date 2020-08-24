@@ -23,9 +23,9 @@ func _input(event):
 		$CameraBase.rotate_y(5)
 		print("yuh")
 		
-	if event.is_action_pressed("k"):
+	if event.is_action_pressed("leftClick"):
 		print("1")
-	if event.is_action_pressed("a"):
+	if event.is_action_pressed("h"):
 		print("2")
 	if event.is_action_pressed("j"):
 		print("3")

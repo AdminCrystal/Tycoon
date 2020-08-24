@@ -16,12 +16,12 @@ func _ready():
 
 func _on_StandardControls_pressed():
 	Controls.setControls("user://standardControls.controls")
-	Controls.setPreference("controlsFile", "standardControls.controls")
+	Controls.changePreference("controlsFile", "user://standardControls.controls")
 
 
 func _on_DvorakControls_pressed():
 	Controls.setControls("user://dvorakControls.controls")
-	Controls.changePreference("controlsFile", "dvorakControls.controls")
+	Controls.changePreference("controlsFile", "user://dvorakControls.controls")
 
 func _on_BackButton_pressed():
 	Menu.visible = true
