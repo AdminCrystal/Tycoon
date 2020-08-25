@@ -13,53 +13,10 @@ func _ready():
 	var controls = get_controls()
 	set_controls(controls)
 	
-
-func create_custom1():
-	pass
 	
-	
-func create_custom2():
-	pass
-	
-	
-func create_custom3():
-	pass	
-	
-	
-func createPreferences():
-	var file = File.new()
-	file.open("user://preferences.settings", File.WRITE)
-	var save_dict = {
-		"controls_file": "user://dvorak_controls.controls"
-		
-	}
-	file.store_line(to_json(save_dict))
-	file.close()
-	save_dict.clear()
-	
-	
-
-
-func change_preference(key: String, value: String):
-	#gets dictionary data then closes
-	var file = File.new()
-	file.open("user://preferences.settings", File.READ)
-	var data: Dictionary = parse_json(file.get_line())
-	file.close()
-	
-	
-	file.open("user://preferences.settings", File.WRITE)
-	data[key] = value	
-	file.store_line(to_json(data))
-	file.close()
-	
-	
-
 func change_control(key: String, value: String, controlsFile: String):
 	var file = File.new()
-	
 	var controls: Dictionary
-	
 	
 	if not file.file_exists(controlsFile):
 		#gets current controls file
@@ -67,12 +24,10 @@ func change_control(key: String, value: String, controlsFile: String):
 		controls = parse_json(file.get_line())
 		file.close()
 		
-		
 		#opens that file and copys its json
 		file.open(controls.controls_file, File.READ)
 		controls = parse_json(file.get_line())
 		file.close()
-		
 		
 		#creates new customControls file
 		file.open(controlsFile, File.WRITE)
@@ -248,7 +203,6 @@ func create_dvorak_controls():
 	file.close()	
 	save_dict.clear()
 	
-	
 
 #recreates fresh standard controls every time they open the game
 func create_standard_controls():
@@ -409,7 +363,6 @@ func create_standard_controls():
 	file.close()
 	save_dict.clear()
 	
-	
 
 #gets which control file holds their controls
 func get_controls() -> String:
@@ -417,7 +370,7 @@ func get_controls() -> String:
 	#checks to make sure if file exists and if it
 	#doesnt creates a new one, theoretically 'impossible'
 	if not file.file_exists("user://preferences.settings"):
-		createPreferences()
+		Preferences.create_preferences()
 	file.open("user://preferences.settings", File.READ)
 	var data = parse_json(file.get_line())
 	
@@ -425,7 +378,6 @@ func get_controls() -> String:
 	file.close()
 	data.clear()
 	return location
-
 
 
 #changes the controls to the users preferred
@@ -442,8 +394,6 @@ func set_controls(filepath: String):
 	for i in range(control.size()):
 		var keycode = InputEventKey.new()
 		keycode.scancode = OS.find_scancode_from_string(control.values()[i])
-		#checks to see if it is a button click or a keycode
-		
 		
 		#WARNING
 		#match in gdscript is the same speed as if elif
