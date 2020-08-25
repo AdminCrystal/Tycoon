@@ -18,12 +18,12 @@ func _ready():
 	
 
 func _input(event):
-	if event.is_action_pressed("rightClick"):
+	if event.is_action_pressed("right_click"):
 		var location = event.position
 		$CameraBase.rotate_y(5)
 		print("yuh")
 		
-	if event.is_action_pressed("leftClick"):
+	if event.is_action_pressed("left_click"):
 		print("1")
 	if event.is_action_pressed("h"):
 		print("2")
@@ -43,13 +43,13 @@ func _unhandled_key_input(event):
 
 func _physics_process(delta):
 	var dir = Vector3()
-	if Input.is_action_pressed("moveForward"):
+	if Input.is_action_pressed("move_forward"):
 		dir += -camera.basis[2]
-	if Input.is_action_pressed("moveBackward"):
+	if Input.is_action_pressed("move_backward"):
 		dir += camera.basis[2]
-	if Input.is_action_pressed("moveLeft"):
+	if Input.is_action_pressed("move_left"):
 		dir += -camera.basis[0]
-	if Input.is_action_pressed("moveRight"):
+	if Input.is_action_pressed("move_right"):
 		dir += camera.basis[0]
 	
 	dir.y = 0

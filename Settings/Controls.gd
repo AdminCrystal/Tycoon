@@ -5,47 +5,42 @@ extends Node
 func _ready():
 	#creates default controls every time game is opened
 	#aka a failsafe for people editing the files 
-	createStandardControls()
-	createDvorakControls()
+	create_standard_controls()
+	create_dvorak_controls()
 	
 	
 	#gets players controls and applies them
-	var controls = getControls()
-	setControls(controls)
+	var controls = get_controls()
+	set_controls(controls)
 	
-	
-
 
 func createCustom1():
 	pass
-	
 	
 	
 func createCustom2():
 	pass
 	
 	
-	
 func createCustom3():
 	pass	
-	
 	
 	
 func createPreferences():
 	var file = File.new()
 	file.open("user://preferences.settings", File.WRITE)
-	var saveDict = {
-		"filename" : "preferences",
-		"controlsFile": "user://dvorakControls.controls"
+	var save_dict = {
+		"controls_file": "user://dvorakControls.controls"
 		
 	}
-	file.store_line(to_json(saveDict))
+	file.store_line(to_json(save_dict))
 	file.close()
+	save_dict.clear()
 	
 	
 
 
-func changePreference(key: String, value: String):
+func change_preference(key: String, value: String):
 	#gets dictionary data then closes
 	var file = File.new()
 	file.open("user://preferences.settings", File.READ)
@@ -60,7 +55,7 @@ func changePreference(key: String, value: String):
 	
 	
 
-func changeControl(key: String, value: String, controlsFile: String):
+func change_control(key: String, value: String, controlsFile: String):
 	var file = File.new()
 	
 	var controls: Dictionary
@@ -74,7 +69,7 @@ func changeControl(key: String, value: String, controlsFile: String):
 		
 		
 		#opens that file and copys its json
-		file.open(controls.controlsFile, File.READ)
+		file.open(controls.controls_file, File.READ)
 		controls = parse_json(file.get_line())
 		file.close()
 		
@@ -87,7 +82,6 @@ func changeControl(key: String, value: String, controlsFile: String):
 		controls = parse_json(file.get_line())
 	file.close()
 	
-	
 	controls[key] = value
 	file.open(controlsFile, File.WRITE)
 	file.store_line(to_json(controls))
@@ -95,37 +89,36 @@ func changeControl(key: String, value: String, controlsFile: String):
 	controls.clear()
 	
 	
-
 #recreates a fresh dvorak control when they open the game
-func createDvorakControls():
+func create_dvorak_controls():
 	var file = File.new()
 	#if not saveControls.file_exists("user://preferences.settings"):
 	file.open("user://dvorakControls.controls", File.WRITE)
-	var saveDict = {
+	var save_dict = {
 		#Defaults
-		"moveForward": "Comma",
-		"moveLeft": "a",
-		"moveBackward": "o",
-		"moveRight": "e",
+		"move_forward": "Comma",
+		"move_left": "a",
+		"move_backward": "o",
+		"move_right": "e",
 		"jump": "Space",
 		"menu": "Escape",
 		"interact": "Period",
 		
-		"upArrow": "Up",
-		"leftArrow": "Left",
-		"downArrow": "Down",
-		"rightArrow": "Right",
+		"up_arrow": "Up",
+		"left_arrow": "Left",
+		"down_arrow": "Down",
+		"right_arrow": "Right",
 		#End Defaults
 		
 	
 		
 		#Mouse actions
-		"leftClick": "LeftClick",
-		"rightClick": "RightClick",
-		"scrollUp": "ScrollWheelUp",
-		"scrollDown": "ScrollWheelDown",
-		"scrollLeft": "ScrollWheelLeft",
-		"scrollRight": "ScrollWheelRight",
+		"left_click": "LeftClick",
+		"right_click": "RightClick",
+		"scroll_up": "ScrollWheelUp",
+		"scroll_down": "ScrollWheelDown",
+		"scroll_left": "ScrollWheelLeft",
+		"scroll_right": "ScrollWheelRight",
 		#End Mouse Actions
 		
 
@@ -140,7 +133,7 @@ func createDvorakControls():
 		"f7": "F7",
 		#WARNING
 		#f8 closes editor
-		"f8": "F8",
+		#"f8": "F8",
 		"f9": "F9",
 		"f10": "F10",
 		"f11": "F11",
@@ -166,7 +159,7 @@ func createDvorakControls():
 		"hotbar0": "0",
 		"minus": "BraceLeft",
 		"equals": "BraceRight",
-		"backSpace": "BackSpace",
+		"backspace": "BackSpace",
 		#End Row 1
 		
 		
@@ -183,15 +176,15 @@ func createDvorakControls():
 		"i": "c",
 		"o": "r",
 		"p": "l",
-		"leftBrace": "Slash",
-		"rightBrace": "Equal",
-		"backSlash": "BackSlash",
+		"left_brace": "Slash",
+		"right_brace": "Equal",
+		"backslash": "BackSlash",
 		#End Row 2
 		
 		
 		
 		#Row 3
-		"capsLock": "Capslock",
+		"caps_lock": "Capslock",
 		"a": "a",
 		"s": "o",
 		"d": "e",
@@ -201,7 +194,7 @@ func createDvorakControls():
 		"j": "h",
 		"k": "t",
 		"l": "n",
-		"semiColon": "s",
+		"semicolon": "s",
 		"apostrophe": "Minus",
 		"enter": "Enter",
 		#End Row 3
@@ -219,7 +212,7 @@ func createDvorakControls():
 		"m": "m",
 		"comma": "w",
 		"period": "v",
-		"forwardSlash": "z",
+		"forward_slash": "z",
 		#End Row 4
 		
 		
@@ -236,56 +229,56 @@ func createDvorakControls():
 		"home": "Home",
 		#WARNING
 		#Print screen input might be undetectable for users
-		#"printScreen": "Print",
-		"volumeMute": "VolumeMute",
-		"volumeDown": "VolumeDown",
-		"volumeUp": "VolumeUp",
+		#"print_screen": "Print",
+		"volume_mute": "VolumeMute",
+		"volume_down": "VolumeDown",
+		"volume_up": "VolumeUp",
 		
-		"pageUp": "PageUp",
+		"page_up": "PageUp",
 		#WARNING
 		#asterisk and plus may be undetectable
 		#"asterisk": "Asterisk",
 		#"plus": "Plus",
 		
-		"pageDown": "PageDown",
+		"page_down": "PageDown",
 		"end": "End",
 		
 	}
-	file.store_line(to_json(saveDict))
+	file.store_line(to_json(save_dict))
 	file.close()	
-	saveDict.clear()
+	save_dict.clear()
 	
 	
 
 #recreates fresh standard controls every time they open the game
-func createStandardControls():
+func create_standard_controls():
 	var file = File.new()
 	#if not saveControls.file_exists("user://preferences.settings"):
 	file.open("user://standardControls.controls", File.WRITE)
-	var saveDict = {
-		"moveForward": "w",
-		"moveLeft": "a",
-		"moveBackward": "s",
-		"moveRight": "d",
+	var save_dict = {
+		"move_forward": "w",
+		"move_left": "a",
+		"move_backward": "s",
+		"move_right": "d",
 		"jump": "Space",
 		"menu": "Escape",
 		"interact": "e",
 		
-		"upArrow": "Up",
-		"leftArrow": "Left",
-		"downArrow": "Down",
-		"rightArrow": "Right",
+		"up_arrow": "Up",
+		"left_arrow": "Left",
+		"down_arrow": "Down",
+		"right_arrow": "Right",
 		#End Defaults
 		
 	
 		
 		#Mouse actions
-		"leftClick": "LeftClick",
-		"rightClick": "RightClick",
-		"scrollUp": "ScrollWheelUp",
-		"scrollDown": "ScrollWheelDown",
-		"scrollLeft": "ScrollWheelLeft",
-		"scrollRight": "ScrollWheelRight",
+		"left_click": "LeftClick",
+		"right_click": "RightClick",
+		"scroll_up": "ScrollWheelUp",
+		"scroll_down": "ScrollWheelDown",
+		"scroll_left": "ScrollWheelLeft",
+		"scroll_right": "ScrollWheelRight",
 		#End Mouse Actions
 		
 
@@ -300,7 +293,7 @@ func createStandardControls():
 		"f7": "F7",
 		#WARNING
 		#f8 closes editor
-		"f8": "F8",
+		#"f8": "F8",
 		"f9": "F9",
 		"f10": "F10",
 		"f11": "F11",
@@ -326,7 +319,7 @@ func createStandardControls():
 		"hotbar0": "0",
 		"minus": "Minus",
 		"equals": "Equal",
-		"backSpace": "BackSpace",
+		"backspace": "BackSpace",
 		#End Row 1
 		
 		
@@ -343,15 +336,15 @@ func createStandardControls():
 		"i": "i",
 		"o": "o",
 		"p": "p",
-		"leftBrace": "BraceLeft",
-		"rightBrace": "BraceRight",
-		"backSlash": "BackSlash",
+		"left_brace": "BraceLeft",
+		"right_brace": "BraceRight",
+		"backslash": "BackSlash",
 		#End Row 2
 		
 		
 		
 		#Row 3
-		"capsLock": "Capslock",
+		"caps_lock": "Capslock",
 		"a": "a",
 		"s": "s",
 		"d": "d",
@@ -361,7 +354,7 @@ func createStandardControls():
 		"j": "j",
 		"k": "k",
 		"l": "l",
-		"semiColon": "SemiColon",
+		"semicolon": "SemiColon",
 		"apostrophe": "Apostrophe",
 		"enter": "Enter",
 		#End Row 3
@@ -379,7 +372,7 @@ func createStandardControls():
 		"m": "m",
 		"comma": "Comma",
 		"period": "Period",
-		"forwardSlash": "Slash",
+		"forward_slash": "Slash",
 		#End Row 4
 		
 		
@@ -397,29 +390,29 @@ func createStandardControls():
 		#WARNING
 		#Print screen input might be undetectable for users
 		#"printScreen": "Print",
-		"volumeMute": "VolumeMute",
-		"volumeDown": "VolumeDown",
-		"volumeUp": "VolumeUp",
+		"volume_mute": "VolumeMute",
+		"volume_down": "VolumeDown",
+		"volume_up": "VolumeUp",
 		
-		"pageUp": "PageUp",
+		"page_up": "PageUp",
 		#WARNING
 		#asterisk and plus may be undetectable
 		#"asterisk": "Asterisk",
 		#"plus": "Plus",
 		
-		"pageDown": "PageDown",
+		"page_down": "PageDown",
 		"end": "End",
 		
 		
 	}
-	file.store_line(to_json(saveDict))
+	file.store_line(to_json(save_dict))
 	file.close()
-	saveDict.clear()
+	save_dict.clear()
 	
 	
 
 #gets which control file holds their controls
-func getControls() -> String:
+func get_controls() -> String:
 	var file = File.new()
 	#checks to make sure if file exists and if it
 	#doesnt creates a new one, theoretically 'impossible'
@@ -428,7 +421,7 @@ func getControls() -> String:
 	file.open("user://preferences.settings", File.READ)
 	var data = parse_json(file.get_line())
 	
-	var location = data.controlsFile
+	var location = data.controls_file
 	file.close()
 	data.clear()
 	return location
@@ -436,7 +429,7 @@ func getControls() -> String:
 
 
 #changes the controls to the users preferred
-func setControls(filepath: String):
+func set_controls(filepath: String):
 	var file = File.new()
 	file.open(filepath, File.READ)
 	
@@ -447,40 +440,38 @@ func setControls(filepath: String):
 	var control = parse_json(file.get_line()) 
 	
 	for i in range(control.size()):
-		var keyCode = InputEventKey.new()
-		keyCode.scancode = OS.find_scancode_from_string(control.values()[i])
+		var keycode = InputEventKey.new()
+		keycode.scancode = OS.find_scancode_from_string(control.values()[i])
 		#checks to see if it is a button click or a keycode
 		
 		
 		#WARNING
 		#match in gdscript is the same speed as if elif
 		#Checks if there is an error code (aka mouse buttons)
-		if keyCode.scancode != 0:
+		if keycode.scancode != 0:
 			pass
 		else:
-			keyCode = InputEventMouseButton.new()
+			keycode = InputEventMouseButton.new()
 			match control.values()[i]:
 				"LeftClick": 
-					keyCode.button_index = BUTTON_LEFT
+					keycode.button_index = BUTTON_LEFT
 				"RightClick":
-					keyCode.button_index = BUTTON_RIGHT
+					keycode.button_index = BUTTON_RIGHT
 				"MiddleClick":
-					keyCode.button_index = BUTTON_MIDDLE
+					keycode.button_index = BUTTON_MIDDLE
 				"ScrollWheelUp":
-					keyCode.button_index = BUTTON_WHEEL_UP
+					keycode.button_index = BUTTON_WHEEL_UP
 				"ScrollWheelDown":
-					keyCode.button_index = BUTTON_WHEEL_DOWN
+					keycode.button_index = BUTTON_WHEEL_DOWN
 				"ScrollWheelLeft":
-					keyCode.button_index = BUTTON_WHEEL_LEFT
+					keycode.button_index = BUTTON_WHEEL_LEFT
 				"ScrollWheelRight":
-					keyCode.button_index = BUTTON_WHEEL_RIGHT
+					keycode.button_index = BUTTON_WHEEL_RIGHT
 				_:	
 					print("Error on control creation key = " + control.values()[i])
 				
-				
 		InputMap.add_action(control.keys()[i])
-		InputMap.action_add_event(control.keys()[i], keyCode)
-		
+		InputMap.action_add_event(control.keys()[i], keycode)
 	
 	file.close()
 	control.clear()
