@@ -30,6 +30,7 @@ Controls="*res://Settings/Controls.gd"
 ControlsMenu="*res://Menus/ControlsMenu.tscn"
 Menu="*res://Menus/Menu.tscn"
 Preferences="*res://Settings/Preferences.tscn"
+Autostart="*res://Settings/Autostart.gd"
 
 [display]
 

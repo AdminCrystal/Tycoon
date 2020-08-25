@@ -2,16 +2,7 @@ extends Node
 
 
 
-func _ready():
-	#creates default controls every time game is opened
-	#aka a failsafe for people editing the files 
-	create_standard_controls()
-	create_dvorak_controls()
-	
-	
-	#gets players controls and applies them
-	var controls = get_controls()
-	set_controls(controls)
+
 	
 	
 func change_control(key: String, value: String, controlsFile: String):
@@ -38,6 +29,7 @@ func change_control(key: String, value: String, controlsFile: String):
 	file.close()
 	
 	controls[key] = value
+	
 	file.open(controlsFile, File.WRITE)
 	file.store_line(to_json(controls))
 	file.close()

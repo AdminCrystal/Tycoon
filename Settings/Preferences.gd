@@ -25,25 +25,18 @@ var field_of_view
 onready var FPSDisplay = $FPSDisplay
 
 
-func _ready():
-	create_preferences()
-	get_preferences()
-	apply_preferences()
 
 
-func _physics_process(delta):
-	display_fps()
 	
 
 
 func apply_preferences():
-	if do_display_fps:
-		var fps_display = $FPSDisplay
-		fps_display.add_color_override("font_color", fps_color)
-		if fps_location[0] == 1:
-			fps_display.align = HALIGN_RIGHT
-		if fps_location[1] == 1:
-			fps_display.valign = VALIGN_BOTTOM
+	turn_on_fps_display()
+	
+
+func calculate_volume(sound: float) -> float:
+	var sound_volume: float = 26/25 * sound - 76
+	return sound_volume
 
 
 func change_preference(key: String, value: String):
@@ -64,7 +57,7 @@ func create_preferences():
 	var file = File.new()
 	file.open("user://preferences.settings", File.WRITE)
 	var save_dict = {
-		"controls_file": "user://dvorak_controls.controls",
+		"controls_file": "user://standard_controls.controls",
 		
 		"do_display_fps": true,
 		"fps_color": [0,255,0],
@@ -127,11 +120,11 @@ func get_preferences():
 	
 	is_music_muted = data.is_music_muted
 	is_game_muted = data.is_game_muted
-	music_volume = data.music_volume
-	player_volume = data.player_volume
-	enemy_volume = data.enemy_volume
-	item_volume = data.item_volume
-	weather_volume = data.weather_volume
+	music_volume = calculate_volume(data.music_volume)
+	player_volume = calculate_volume(data.player_volume)
+	enemy_volume = calculate_volume(data.enemy_volume)
+	item_volume = calculate_volume(data.item_volume)
+	weather_volume = calculate_volume(data.weather_volume)
 	
 	mouse_sensitivity = data.mouse_sensitivity
 	texture_quality = data.texture_quality
@@ -139,3 +132,24 @@ func get_preferences():
 	shadow_quality = data.shadow_quality
 	field_of_view = data.field_of_view
 
+
+func turn_on_fps_display():
+	if do_display_fps:
+			var fps_display = $FPSDisplay
+			fps_display.add_color_override("font_color", fps_color)
+			if fps_location[0] == 1:
+				fps_display.align = HALIGN_RIGHT
+			if fps_location[1] == 1:
+				fps_display.valign = VALIGN_BOTTOM
+				
+			
+func update_sound_volume(group: String):
+		get_tree().call_group(group, "update_volume")
+			
+			
+			
+			
+			
+			
+			
+			

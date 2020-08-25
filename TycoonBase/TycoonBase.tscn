@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://TycoonBase/TycoonBase.gd" type="Script" id=1]
 [ext_resource path="res://TycoonBase/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Chiptune_Adventures_1.ogg" type="AudioStream" id=3]
+[ext_resource path="res://TycoonBase/BackgroundMusic.gd" type="Script" id=4]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -106,3 +108,9 @@ __meta__ = {
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27407, 0 )
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="." groups=[
+"music",
+]]
+stream = ExtResource( 3 )
+script = ExtResource( 4 )
