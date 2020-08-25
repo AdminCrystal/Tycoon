@@ -14,15 +14,15 @@ func _ready():
 	set_controls(controls)
 	
 
-func createCustom1():
+func create_custom1():
 	pass
 	
 	
-func createCustom2():
+func create_custom2():
 	pass
 	
 	
-func createCustom3():
+func create_custom3():
 	pass	
 	
 	
@@ -30,7 +30,7 @@ func createPreferences():
 	var file = File.new()
 	file.open("user://preferences.settings", File.WRITE)
 	var save_dict = {
-		"controls_file": "user://dvorakControls.controls"
+		"controls_file": "user://dvorak_controls.controls"
 		
 	}
 	file.store_line(to_json(save_dict))
@@ -93,7 +93,7 @@ func change_control(key: String, value: String, controlsFile: String):
 func create_dvorak_controls():
 	var file = File.new()
 	#if not saveControls.file_exists("user://preferences.settings"):
-	file.open("user://dvorakControls.controls", File.WRITE)
+	file.open("user://dvorak_controls.controls", File.WRITE)
 	var save_dict = {
 		#Defaults
 		"move_forward": "Comma",
@@ -254,7 +254,7 @@ func create_dvorak_controls():
 func create_standard_controls():
 	var file = File.new()
 	#if not saveControls.file_exists("user://preferences.settings"):
-	file.open("user://standardControls.controls", File.WRITE)
+	file.open("user://standard_controls.controls", File.WRITE)
 	var save_dict = {
 		"move_forward": "w",
 		"move_left": "a",
