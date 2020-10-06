@@ -13,32 +13,12 @@ const DE_ACCELERATION = 5
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	camera = $CameraBase/Camera.get_global_transform()
-	Menu.visible = false
-	ControlsMenu.visible = false
 	
 
 func _input(event):
 	if event.is_action_pressed("right_click"):
 		var location = event.position
 		$CameraBase.rotate_y(5)
-		print("yuh")
-		
-	if event.is_action_pressed("left_click"):
-		print("1")
-	if event.is_action_pressed("h"):
-		print("2")
-	if event.is_action_pressed("j"):
-		print("3")
-	if event.is_action_pressed("delete"):
-		print("4")
-		
-	
-
-func _unhandled_key_input(event):
-	if event.is_action_pressed("menu"):
-		Menu.visible = !Menu.visible
-		ControlsMenu.visible = false
-		
 		
 
 func _physics_process(delta):

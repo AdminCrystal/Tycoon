@@ -1,54 +1,52 @@
 extends Node
 
 
-
-
+var controls: Dictionary
 	
+func change_control(key: String, value: String, controls_file: String) -> void:
+	var file: File = File.new()
+	var _error
 	
-func change_control(key: String, value: String, controlsFile: String):
-	var file = File.new()
-	var controls: Dictionary
-	
-	if not file.file_exists(controlsFile):
-		#gets current controls file
-		file.open("user://preferences.settings", File.READ)
-		controls = parse_json(file.get_line())
+	if controls.empty():
+		if not file.file_exists(controls_file):
+			#gets current controls file
+			_error = file.open("user://preferences.settings", File.READ)
+			controls = parse_json(file.get_line())
+			file.close()
+			
+			#opens that file and copys its json
+			_error = file.open(controls.controls_file, File.READ)
+			controls = parse_json(file.get_line())
+			file.close()
+			
+			#creates new customControls file
+			_error = file.open(controls_file, File.WRITE)
+		else:	
+			#opens custom controls file and copys its json	
+			_error = file.open(controls_file, File.READ)
+			controls = parse_json(file.get_line())
 		file.close()
-		
-		#opens that file and copys its json
-		file.open(controls.controls_file, File.READ)
-		controls = parse_json(file.get_line())
-		file.close()
-		
-		#creates new customControls file
-		file.open(controlsFile, File.WRITE)
-	else:	
-		#opens custom controls file and copys its json	
-		file.open(controlsFile, File.READ)
-		controls = parse_json(file.get_line())
-	file.close()
 	
 	controls[key] = value
 	
-	file.open(controlsFile, File.WRITE)
+	_error = file.open(controls_file, File.WRITE)
 	file.store_line(to_json(controls))
 	file.close()
-	controls.clear()
 	
 	
 #recreates a fresh dvorak control when they open the game
-func create_dvorak_controls():
-	var file = File.new()
+func create_dvorak_controls() -> void:
+	var file: File = File.new()
 	#if not saveControls.file_exists("user://preferences.settings"):
-	file.open("user://dvorak_controls.controls", File.WRITE)
-	var save_dict = {
+	var _error = file.open("user://dvorak_controls.controls", File.WRITE)
+	var save_dict: Dictionary = {
 		#Defaults
 		"move_forward": "Comma",
 		"move_left": "a",
 		"move_backward": "o",
 		"move_right": "e",
 		"jump": "Space",
-		"menu": "Escape",
+		"open_menu": "Escape",
 		"interact": "Period",
 		
 		"up_arrow": "Up",
@@ -197,17 +195,14 @@ func create_dvorak_controls():
 	
 
 #recreates fresh standard controls every time they open the game
-func create_standard_controls():
-	var file = File.new()
-	#if not saveControls.file_exists("user://preferences.settings"):
-	file.open("user://standard_controls.controls", File.WRITE)
-	var save_dict = {
+func create_standard_controls() -> void:
+	var save_dict: Dictionary = {
 		"move_forward": "w",
 		"move_left": "a",
 		"move_backward": "s",
 		"move_right": "d",
 		"jump": "Space",
-		"menu": "Escape",
+		"open_menu": "Escape",
 		"interact": "e",
 		
 		"up_arrow": "Up",
@@ -351,6 +346,14 @@ func create_standard_controls():
 		
 		
 	}
+	var file: File = File.new()
+	#if not saveControls.file_exists("user://preferences.settings"):
+	var _error = file.open("user://standard_controls.controls", File.WRITE)
+	file.store_line(to_json(save_dict))
+	file.close()
+	
+	# creates a placeholder custom controls file
+	_error = file.open("user://custom_controls.controls", File.WRITE)
 	file.store_line(to_json(save_dict))
 	file.close()
 	save_dict.clear()
@@ -358,34 +361,34 @@ func create_standard_controls():
 
 #gets which control file holds their controls
 func get_controls() -> String:
-	var file = File.new()
+	var file: File = File.new()
 	#checks to make sure if file exists and if it
 	#doesnt creates a new one, theoretically 'impossible'
 	if not file.file_exists("user://preferences.settings"):
 		Preferences.create_preferences()
-	file.open("user://preferences.settings", File.READ)
-	var data = parse_json(file.get_line())
+	var _error = file.open("user://preferences.settings", File.READ)
+	var data: Dictionary = parse_json(file.get_line())
 	
-	var location = data.controls_file
+	var location: String = data.controls_file
 	file.close()
 	data.clear()
 	return location
 
 
 #changes the controls to the users preferred
-func set_controls(filepath: String):
-	var file = File.new()
-	file.open(filepath, File.READ)
+func set_controls(filepath: String) -> void:
+	var file: File = File.new()
+	var _error = file.open(filepath, File.READ)
 	
 	#this resets the InputMap to default meaning
 	#that if the controls are changed there will
 	#not be multiple keys per InputMap
 	InputMap.load_from_globals()
-	var control = parse_json(file.get_line()) 
+	controls = parse_json(file.get_line()) 
 	
-	for i in range(control.size()):
+	for i in range(controls.size()):
 		var keycode = InputEventKey.new()
-		keycode.scancode = OS.find_scancode_from_string(control.values()[i])
+		keycode.scancode = OS.find_scancode_from_string(controls.values()[i])
 		
 		#WARNING
 		#match in gdscript is the same speed as if elif
@@ -394,7 +397,7 @@ func set_controls(filepath: String):
 			pass
 		else:
 			keycode = InputEventMouseButton.new()
-			match control.values()[i]:
+			match controls.values()[i]:
 				"LeftClick": 
 					keycode.button_index = BUTTON_LEFT
 				"RightClick":
@@ -410,13 +413,12 @@ func set_controls(filepath: String):
 				"ScrollWheelRight":
 					keycode.button_index = BUTTON_WHEEL_RIGHT
 				_:	
-					print("Error on control creation key = " + control.values()[i])
+					print("Error on control creation key = " + controls.values()[i])
 				
-		InputMap.add_action(control.keys()[i])
-		InputMap.action_add_event(control.keys()[i], keycode)
+		InputMap.add_action(controls.keys()[i])
+		InputMap.action_add_event(controls.keys()[i], keycode)
 	
 	file.close()
-	control.clear()
 	
 
 

@@ -12,7 +12,6 @@ func _ready():
 
 
 func update_volume():
-	if !Preferences.is_game_muted and !Preferences.is_music_muted:
-		volume_db = Preferences.music_volume
-		print(volume_db)
-		playing = true
+	if !Preferences.data.is_game_muted and !Preferences.data.is_music_muted:
+		Preferences.data.volume_db = Preferences.data.music_volume
+		self.playing = true

@@ -5,25 +5,19 @@ extends Control
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
+func _ready() -> void:
+	self.visible = false
+	
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
-
-
-func _on_ChangeControls_pressed():
-	Menu.visible = false
-	ControlsMenu.visible = true
-
-
-func _on_Quit_pressed():
+func _on_Quit_pressed() -> void:
 	get_tree().quit()
 
 
-func _on_CloseMenu_pressed():
-	Menu.visible = false
+func _on_CloseMenu_pressed() -> void:
+	self.visible = false
+
+
+func _on_Settings_pressed():
+	self.visible = false
+	SettingsMenu.visible = true
+	SettingsMenu.update_all_controls_display()
