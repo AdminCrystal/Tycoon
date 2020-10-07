@@ -22,7 +22,7 @@ func apply_preferences() -> void:
 	turn_on_fps_display()
 	turn_on_vsync()
 	
-	adjust_screen_size()
+	#adjust_screen_size()
 	adjust_fps_max()
 	adjust_msaa()
 	adjust_screen_resolution()
@@ -40,21 +40,51 @@ func adjust_msaa() -> void:
 func adjust_screen_size() -> void:
 	if data.window_type == "fullscreen":
 		OS.window_fullscreen = true
-	elif data.window_type == "borderless":
-		OS.window_borderless = true
-		OS.window_maximized = true
+		OS.window_borderless = false
+		
+	# Borderless does not work perfectly and this is merely a workaround
+	# Enable at your own risk
+#	elif data.window_type == "borderless":
+#		# 
+#		OS.window_borderless = true
+#		OS.window_fullscreen = false
+#		OS.window_maximized = true
+#		OS.window_size.y = OS.get_screen_size().y - 30
+#		OS.window_position = Vector2(0,0)
 	else:
-		OS.window_size = Vector2(data.window_size[0], data.window_size[1])
+		# if you want to specify exact dimensions here you go
+		#OS.window_size = Vector2(data.window_size[0], data.window_size[1])
+		OS.window_borderless = false
+		OS.window_fullscreen = false
 	
 
 func adjust_screen_resolution() -> void:
 	# if data.resolution is set to Native the resolution will auto adjust to
 	# the windows current size
-	var resolution: Viewport = (get_tree().get_root() as Viewport)
-	if typeof(data.resolution) != TYPE_ARRAY:
-		resolution.set_size(OS.get_window_size())
+	var screen: Viewport = (get_tree().get_root() as Viewport)
+	var resolution: Vector2
+	match data.resolution:
+		'2160p':
+			resolution = Vector2(3840, 2160)
+		'1440p':
+			resolution = Vector2(2560, 1440)
+		'1080p':
+			resolution = Vector2(1920, 1080)
+		'720p':
+			resolution = Vector2(1280, 720)
+		'480p':
+			resolution = Vector2(720, 480)
+		'360p':
+			resolution = Vector2(480, 360)
+		_:
+			resolution = OS.get_window_size()
+	
+	if resolution.x > OS.get_window_size().x:
+		screen.set_size(OS.get_window_size())
+	elif resolution.y > OS.get_window_size().y:
+		screen.set_size(OS.get_window_size())
 	else:
-		resolution.set_size(Vector2(data.resolution[0], data.resolution[1]))
+		screen.set_size(resolution)
 	
 
 func calculate_volume(sound: float) -> float:
@@ -84,11 +114,11 @@ func create_preferences() -> void:
 	var save_dict: Dictionary = {
 		"controls_file": controls_file,
 		
-		"do_display_fps": true,
+		"do_display_fps": false,
 		"vsync": true,
-		"target_fps": 60,
-		"fps_color": [0,255,0],
-		"fps_location": [1, 0],
+		"max_fps": 60,
+		"fps_color": "red",
+		"fps_location": ["left", "top"],
 		
 		#music settings
 		"is_music_muted": false,
@@ -106,13 +136,13 @@ func create_preferences() -> void:
 		
 		#graphics settings
 		"window_type": "windowed",
-		"resolution": [1920, 1080],
+		"resolution": '1080p',
 		"window_size": [1280, 720],
 		"texture_quality": "High",
 		"water_quality": "High",
 		"shadow_quality": "High",
 		
-		"msaa": 3,
+		"msaa": 0,
 		"ssao": 0,
 		"anisotropic_filtering": "Off",
 		"motion_blur": false,
@@ -153,10 +183,14 @@ func turn_on_fps_display() -> void:
 	if data.do_display_fps:
 		var fps_display: Label = ($FPSDisplay as Label)
 		fps_display.add_color_override("font_color", data.fps_color)
-		if data.fps_location[0] == 1:
+		if data.fps_location[0] == "right":
 			fps_display.align = HALIGN_RIGHT
-		if data.fps_location[1] == 1:
+		else:
+			fps_display.align = HALIGN_LEFT
+		if data.fps_location[1] == "bottom":
 			fps_display.valign = VALIGN_BOTTOM
+		else:
+			fps_display.valign = VALIGN_TOP
 
 
 func turn_on_vsync() -> void:

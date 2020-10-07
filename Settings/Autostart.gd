@@ -8,7 +8,7 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#Preferences.create_preferences()
+	Preferences.create_preferences()
 	Preferences.get_preferences()
 	Preferences.apply_preferences()
 	
@@ -21,7 +21,7 @@ func _physics_process(_delta: float) -> void:
 	Preferences.display_fps()
 
 
-func _unhandled_key_input(event: InputEventKey) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("open_menu"):
 		if Menu.visible == false and SettingsMenu.visible == false:
 			Menu.visible = true

@@ -19,13 +19,14 @@ func _ready() -> void:
 	were_preferences_changed = false
 
 
-func _input(event) -> void:
+func _input(event: InputEvent) -> void:
 	# gets user input and applys it to new_key
 	if accepting_input:
 		if event is InputEventKey:
 			new_key = event.as_text()
 			($ButtonChanger/Label as Label).text += new_key.to_lower()
 			accepting_input = false
+			get_tree().set_input_as_handled()
 		
 
 func connect_all_buttons() -> void:
@@ -36,8 +37,59 @@ func connect_all_buttons() -> void:
 	# conects sound buttons
 	for child in $VBoxContainer/SettingsRow/SoundScroller/SoundContainer/Sounds.get_children():
 		child.connect('value_changed', self, 'update_sound_display', [child])
+		
+	connect_graphics_buttons()
 
 
+func connect_graphics_buttons():
+	var container = $VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics
+	
+	var window_type_options = container.get_child(0)
+	var resolution_options = container.get_child(1)
+	var msaa_options = container.get_child(2)
+	var vsync_options = container.get_child(3)
+	var max_fps_options = container.get_child(4)
+	var display_fps_options = container.get_child(5)
+	var fps_location_options = container.get_child(6)
+	var fps_color_options = container.get_child(7)
+	
+	for child in window_type_options.get_children():
+		child = child as Button
+		if child.get_name() == Preferences.data["window_type"]:
+			child.disabled = true
+		child.connect('pressed', self, 'change_window_size', [child])
+		
+	for child in resolution_options.get_children():
+		child = child as Button
+		if child.get_name() == Preferences.data["resolution"]:
+			child.disabled = true
+		child.connect('pressed', self, 'change_resolution', [child])
+		
+
+func change_resolution(resolution: Button) -> void:
+	var name: String = resolution.get_name()
+	Preferences.data['resolution'] = name
+	for child in resolution.get_parent().get_children():
+		if child.get_name() == name:
+			child.disabled = true
+		else:
+			child.disabled = false
+	Preferences.adjust_screen_resolution()
+	were_preferences_changed = true
+	
+	
+func change_window_size(window_type: Button) -> void:
+	var name: String = window_type.get_name()
+	Preferences.data["window_type"] = name
+	for child in window_type.get_parent().get_children():
+		if child.get_name() == name:
+			child.disabled = true
+		else:
+			child.disabled = false
+	Preferences.adjust_screen_size()
+	were_preferences_changed = true
+	
+	
 func update_all_controls_display() -> void:
 	for child in $VBoxContainer/SettingsRow/ControlsScroller/ControlsContainer/Controls.get_children():
 		update_control_display(child)
@@ -138,17 +190,28 @@ func save_preferences():
 
 
 func _on_Controls_pressed():
-	$VBoxContainer/SettingsRow/ControlsScroller.visible = true
+	$VBoxContainer/SettingsRow/GraphicsScroller.visible = false
 	$VBoxContainer/SettingsRow/SoundScroller.visible = false
+	$VBoxContainer/SettingsRow/ControlsScroller.visible = true
 	display_preset_children(true)
 
 
 func _on_Sound_pressed():
+	$VBoxContainer/SettingsRow/GraphicsScroller.visible = false
 	$VBoxContainer/SettingsRow/ControlsScroller.visible = false
 	$VBoxContainer/SettingsRow/SoundScroller.visible = true
 	display_preset_children(false)
 
 
-func display_preset_children(visible: bool):
+func display_preset_children(visible: bool) -> void:
 	for child in $VBoxContainer/PresetsRow.get_children():
 		child.visible = visible
+
+
+func _on_Graphics_pressed() -> void:
+	$VBoxContainer/SettingsRow/ControlsScroller.visible = false
+	$VBoxContainer/SettingsRow/SoundScroller.visible = false
+	$VBoxContainer/SettingsRow/GraphicsScroller.visible = true
+	display_preset_children(false)
+
+	

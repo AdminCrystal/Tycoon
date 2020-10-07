@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Menus/SettingsMenu.gd" type="Script" id=1]
 [ext_resource path="res://Alata-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Fonts/LabelFont.tres" type="DynamicFont" id=3]
 [ext_resource path="res://icon.png" type="Texture" id=4]
 [ext_resource path="res://Fonts/DavidLibre-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Menus/LabelOutline.png" type="Texture" id=6]
+[ext_resource path="res://Menus/ButtonDisabled.tres" type="StyleBox" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 size = 26
@@ -22,6 +24,8 @@ margin_left = 30.0
 margin_top = 30.0
 margin_right = -30.0
 margin_bottom = -30.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -106,6 +110,7 @@ enabled_focus_mode = 0
 text = "Graphics"
 
 [node name="ControlsScroller" type="ScrollContainer" parent="VBoxContainer/SettingsRow"]
+visible = false
 margin_left = 320.0
 margin_right = 1860.0
 margin_bottom = 630.0
@@ -128,6 +133,7 @@ custom_constants/separation = 30
 margin_right = 750.0
 margin_bottom = 80.0
 rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
 expand = true
 
 [node name="Label" type="Label" parent="VBoxContainer/SettingsRow/ControlsScroller/ControlsContainer/Labels/MoveForward"]
@@ -146,6 +152,7 @@ margin_top = 110.0
 margin_right = 750.0
 margin_bottom = 190.0
 rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
 expand = true
 
 [node name="Label" type="Label" parent="VBoxContainer/SettingsRow/ControlsScroller/ControlsContainer/Labels/MoveLeft"]
@@ -164,6 +171,7 @@ margin_top = 220.0
 margin_right = 750.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
 expand = true
 
 [node name="Label" type="Label" parent="VBoxContainer/SettingsRow/ControlsScroller/ControlsContainer/Labels/MoveBackwards"]
@@ -182,6 +190,7 @@ margin_top = 330.0
 margin_right = 750.0
 margin_bottom = 410.0
 rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
 expand = true
 
 [node name="Label" type="Label" parent="VBoxContainer/SettingsRow/ControlsScroller/ControlsContainer/Labels/MoveRight"]
@@ -200,6 +209,7 @@ margin_top = 440.0
 margin_right = 750.0
 margin_bottom = 520.0
 rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
 expand = true
 
 [node name="Label" type="Label" parent="VBoxContainer/SettingsRow/ControlsScroller/ControlsContainer/Labels/Jump"]
@@ -218,6 +228,7 @@ margin_top = 550.0
 margin_right = 750.0
 margin_bottom = 630.0
 rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
 expand = true
 
 [node name="Label" type="Label" parent="VBoxContainer/SettingsRow/ControlsScroller/ControlsContainer/Labels/OpenMenu"]
@@ -236,6 +247,7 @@ margin_top = 660.0
 margin_right = 750.0
 margin_bottom = 740.0
 rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
 expand = true
 
 [node name="Label" type="Label" parent="VBoxContainer/SettingsRow/ControlsScroller/ControlsContainer/Labels/Interact"]
@@ -343,6 +355,7 @@ custom_constants/separation = 30
 margin_right = 750.0
 margin_bottom = 80.0
 rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
 expand = true
 
 [node name="Label" type="Label" parent="VBoxContainer/SettingsRow/SoundScroller/SoundContainer/Labels/MasterVolume"]
@@ -361,6 +374,7 @@ margin_top = 110.0
 margin_right = 750.0
 margin_bottom = 190.0
 rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
 expand = true
 
 [node name="Label" type="Label" parent="VBoxContainer/SettingsRow/SoundScroller/SoundContainer/Labels/MusicVolume"]
@@ -379,6 +393,7 @@ margin_top = 220.0
 margin_right = 750.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
 expand = true
 
 [node name="Label" type="Label" parent="VBoxContainer/SettingsRow/SoundScroller/SoundContainer/Labels/PlayerVolume"]
@@ -397,6 +412,7 @@ margin_top = 330.0
 margin_right = 750.0
 margin_bottom = 410.0
 rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
 expand = true
 
 [node name="Label" type="Label" parent="VBoxContainer/SettingsRow/SoundScroller/SoundContainer/Labels/EnemyVolume"]
@@ -415,6 +431,7 @@ margin_top = 440.0
 margin_right = 750.0
 margin_bottom = 520.0
 rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
 expand = true
 
 [node name="Label" type="Label" parent="VBoxContainer/SettingsRow/SoundScroller/SoundContainer/Labels/ItemVolume"]
@@ -433,6 +450,7 @@ margin_top = 550.0
 margin_right = 750.0
 margin_bottom = 630.0
 rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
 expand = true
 
 [node name="Label" type="Label" parent="VBoxContainer/SettingsRow/SoundScroller/SoundContainer/Labels/WeatherVolume"]
@@ -555,6 +573,694 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 custom_fonts/font = ExtResource( 3 )
 text = "100"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GraphicsScroller" type="ScrollContainer" parent="VBoxContainer/SettingsRow"]
+margin_left = 320.0
+margin_right = 1860.0
+margin_bottom = 630.0
+rect_min_size = Vector2( 1000, 0 )
+size_flags_horizontal = 3
+scroll_horizontal_enabled = false
+
+[node name="GraphicsContainer" type="HBoxContainer" parent="VBoxContainer/SettingsRow/GraphicsScroller"]
+margin_right = 1360.0
+margin_bottom = 850.0
+custom_constants/separation = 20
+
+[node name="Labels" type="VBoxContainer" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer"]
+margin_right = 750.0
+margin_bottom = 850.0
+rect_min_size = Vector2( 750, 60 )
+custom_constants/separation = 30
+
+[node name="Window Type" type="TextureRect" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Labels"]
+margin_right = 750.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
+expand = true
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Labels/Window Type"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Window Type"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Resolution" type="TextureRect" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Labels"]
+margin_top = 110.0
+margin_right = 750.0
+margin_bottom = 190.0
+rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
+expand = true
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Labels/Resolution"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Resolution"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MSAA" type="TextureRect" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Labels"]
+margin_top = 220.0
+margin_right = 750.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
+expand = true
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Labels/MSAA"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "MSAA"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Vsync" type="TextureRect" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Labels"]
+margin_top = 330.0
+margin_right = 750.0
+margin_bottom = 410.0
+rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
+expand = true
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Labels/Vsync"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Vsync"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Max Fps" type="TextureRect" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Labels"]
+margin_top = 440.0
+margin_right = 750.0
+margin_bottom = 520.0
+rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
+expand = true
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Labels/Max Fps"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Max Fps"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DisplayFps" type="TextureRect" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Labels"]
+margin_top = 550.0
+margin_right = 750.0
+margin_bottom = 630.0
+rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
+expand = true
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Labels/DisplayFps"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Display Fps"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FpsLocation" type="TextureRect" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Labels"]
+margin_top = 660.0
+margin_right = 750.0
+margin_bottom = 740.0
+rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
+expand = true
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Labels/FpsLocation"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Fps Location"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FpsColor" type="TextureRect" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Labels"]
+margin_top = 770.0
+margin_right = 750.0
+margin_bottom = 850.0
+rect_min_size = Vector2( 750, 80 )
+texture = ExtResource( 6 )
+expand = true
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Labels/FpsColor"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Fps Color"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Graphics" type="VBoxContainer" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer"]
+margin_left = 770.0
+margin_right = 1360.0
+margin_bottom = 850.0
+rect_min_size = Vector2( 230, 60 )
+size_flags_horizontal = 3
+custom_constants/separation = 30
+
+[node name="window_type" type="HBoxContainer" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics"]
+margin_right = 590.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 590, 0 )
+custom_constants/separation = 15
+
+[node name="fullscreen" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/window_type"]
+margin_right = 287.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/window_type/fullscreen"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Fullscreen"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="windowed" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/window_type"]
+margin_left = 302.0
+margin_right = 590.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/window_type/windowed"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Windowed"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="resolution" type="HBoxContainer" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics"]
+margin_top = 110.0
+margin_right = 590.0
+margin_bottom = 190.0
+rect_min_size = Vector2( 590, 0 )
+custom_constants/separation = 15
+
+[node name="Native" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/resolution"]
+margin_right = 136.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/resolution/Native"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Native"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1080p" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/resolution"]
+margin_left = 151.0
+margin_right = 287.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/resolution/1080p"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "1080p"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="720p" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/resolution"]
+margin_left = 302.0
+margin_right = 438.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/resolution/720p"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "720p"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="480p" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/resolution"]
+margin_left = 453.0
+margin_right = 590.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/resolution/480p"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "480p"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="msaa" type="HBoxContainer" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics"]
+margin_top = 220.0
+margin_right = 590.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 590, 0 )
+custom_constants/separation = 15
+
+[node name="0" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/msaa"]
+margin_right = 136.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/msaa/0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Off"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="1" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/msaa"]
+margin_left = 151.0
+margin_right = 287.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/msaa/1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "2x"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="2" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/msaa"]
+margin_left = 302.0
+margin_right = 438.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/msaa/2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "4x"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="3" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/msaa"]
+margin_left = 453.0
+margin_right = 590.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/msaa/3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "8x"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="vsync" type="HBoxContainer" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics"]
+margin_top = 330.0
+margin_right = 590.0
+margin_bottom = 410.0
+rect_min_size = Vector2( 590, 0 )
+custom_constants/separation = 15
+
+[node name="Enabled" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/vsync"]
+margin_right = 287.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/vsync/Enabled"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Enabled"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Disabled" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/vsync"]
+margin_left = 302.0
+margin_right = 590.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/vsync/Disabled"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Disabled"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="max_fps" type="HBoxContainer" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics"]
+margin_top = 440.0
+margin_right = 590.0
+margin_bottom = 520.0
+rect_min_size = Vector2( 590, 0 )
+custom_constants/separation = 15
+
+[node name="max_fps" type="HScrollBar" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/max_fps"]
+margin_right = 590.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+size_flags_horizontal = 3
+min_value = 15.0
+max_value = 240.0
+step = 1.0
+value = 15.0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/max_fps/max_fps"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "60"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="display_fps" type="HBoxContainer" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics"]
+margin_top = 550.0
+margin_right = 590.0
+margin_bottom = 630.0
+rect_min_size = Vector2( 590, 0 )
+custom_constants/separation = 15
+
+[node name="Enabled" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/display_fps"]
+margin_right = 287.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/display_fps/Enabled"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Enabled"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Disabled" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/display_fps"]
+margin_left = 302.0
+margin_right = 590.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/display_fps/Disabled"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Disabled"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fps_location" type="HBoxContainer" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics"]
+margin_top = 660.0
+margin_right = 590.0
+margin_bottom = 740.0
+rect_min_size = Vector2( 590, 0 )
+custom_constants/separation = 15
+
+[node name="top" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/fps_location"]
+margin_right = 136.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/fps_location/top"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Top"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="bottom" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/fps_location"]
+margin_left = 151.0
+margin_right = 287.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/fps_location/bottom"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Bottom"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="left" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/fps_location"]
+margin_left = 302.0
+margin_right = 438.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/fps_location/left"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Left"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="right" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/fps_location"]
+margin_left = 453.0
+margin_right = 590.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/fps_location/right"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Right"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="fps_color" type="HBoxContainer" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics"]
+margin_top = 770.0
+margin_right = 590.0
+margin_bottom = 850.0
+rect_min_size = Vector2( 590, 0 )
+custom_constants/separation = 15
+
+[node name="red" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/fps_color"]
+margin_right = 186.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/fps_color/red"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Red"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="green" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/fps_color"]
+margin_left = 201.0
+margin_right = 388.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/fps_color/green"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Green"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="blue" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/fps_color"]
+margin_left = 403.0
+margin_right = 590.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+focus_mode = 0
+size_flags_horizontal = 3
+custom_styles/disabled = ExtResource( 7 )
+enabled_focus_mode = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/fps_color/blue"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 3 )
+text = "Blue"
 align = 1
 valign = 1
 __meta__ = {
@@ -692,6 +1398,7 @@ __meta__ = {
 [connection signal="pressed" from="VBoxContainer/TopRow/CloseMenus" to="." method="_on_CloseMenus_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsRow/LeftOptions/Controls" to="." method="_on_Controls_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsRow/LeftOptions/Sound" to="." method="_on_Sound_pressed"]
+[connection signal="pressed" from="VBoxContainer/SettingsRow/LeftOptions/Graphics" to="." method="_on_Graphics_pressed"]
 [connection signal="pressed" from="VBoxContainer/PresetsRow/StandardControls" to="." method="_on_StandardControls_pressed"]
 [connection signal="pressed" from="VBoxContainer/PresetsRow/DvorakControls" to="." method="_on_DvorakControls_pressed"]
 [connection signal="pressed" from="VBoxContainer/PresetsRow/CustomControls" to="." method="_on_CustomControls_pressed"]
