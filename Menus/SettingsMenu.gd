@@ -24,7 +24,7 @@ func _input(event: InputEvent) -> void:
 	if accepting_input:
 		if event is InputEventKey:
 			new_key = event.as_text()
-			($ButtonChanger/Label as Label).text += new_key.to_lower()
+			($ButtonChanger/Picture/Label as Label).text += new_key.to_lower()
 			accepting_input = false
 			get_tree().set_input_as_handled()
 		
@@ -48,46 +48,128 @@ func connect_graphics_buttons():
 	var resolution_options = container.get_child(1)
 	var msaa_options = container.get_child(2)
 	var vsync_options = container.get_child(3)
-	var max_fps_options = container.get_child(4)
+	var max_fps_options = container.get_child(4).get_child(0)
 	var display_fps_options = container.get_child(5)
 	var fps_location_options = container.get_child(6)
 	var fps_color_options = container.get_child(7)
+
+	connect_children(window_type_options, "change_window_size")	
+	connect_children(resolution_options, "change_resolution")
+	connect_children(msaa_options, "change_msaa")
+	connect_children(vsync_options, "change_vsync")
+	connect_children(display_fps_options, "change_fps_display")
+	connect_children(fps_color_options, "change_fps_color")
 	
-	for child in window_type_options.get_children():
-		child = child as Button
-		if child.get_name() == Preferences.data["window_type"]:
-			child.disabled = true
-		child.connect('pressed', self, 'change_window_size', [child])
+	max_fps_options.connect('value_changed', self, "change_fps_max", [max_fps_options])
+	max_fps_options.value = Preferences.data["max_fps"]
+	
+	for child in fps_location_options.get_children():
+		child.connect('pressed', self, "change_fps_location", [child])
 		
-	for child in resolution_options.get_children():
+	for child in fps_location_options.get_children():
+		var child_name: String = child.get_name()
+		if child_name == "top" or child_name == "bottom":
+			if child_name == Preferences.data["fps_vertical_location"]:
+				child.disabled = true
+			else:
+				child.disabled = false
+		else:
+			if child_name == Preferences.data["fps_horizontal_location"]:
+				child.disabled = true
+			else:
+				child.disabled = false
+	
+	
+func change_fps_location(fps_location: Button) -> void:
+	var name: String = fps_location.get_name()
+	if name == "top" or name == "bottom":
+		Preferences.data["fps_vertical_location"] = name
+	else:
+		Preferences.data["fps_horizontal_location"] = name
+	for child in fps_location.get_parent().get_children():
+		var child_name: String = child.get_name()
+		if child_name == "top" or child_name == "bottom":
+			if child_name == Preferences.data["fps_vertical_location"]:
+				child.disabled = true
+			else:
+				child.disabled = false
+		else:
+			if child_name == Preferences.data["fps_horizontal_location"]:
+				child.disabled = true
+			else:
+				child.disabled = false
+	Preferences.adjust_fps_display_location()
+	were_preferences_changed = true
+
+	
+func change_fps_display(fps_display: Button):
+	var name: String = fps_display.get_name()
+	Preferences.data['do_display_fps'] = name
+	disable_and_enable_children(fps_display)
+	
+
+func change_fps_color(fps_color: Button):
+	var name: String = fps_color.get_name()
+	Preferences.data['fps_color'] = name
+	disable_and_enable_children(fps_color)
+	Preferences.adjust_fps_color()
+
+
+func change_fps_max(value: float, fps: HScrollBar) -> void:
+	var name: String = fps.get_name()
+	Preferences.data[name] = value
+	fps.get_child(0).text = str(fps.value)
+	Preferences.adjust_fps_max()
+	were_preferences_changed = true
+
+
+func change_vsync(vsync: Button) -> void:
+	var name: String = vsync.get_name()
+	Preferences.data['vsync'] = name
+	disable_and_enable_children(vsync)
+	Preferences.turn_on_vsync()
+	Preferences.adjust_fps_max()
+
+
+func change_msaa(msaa: Button) -> void:
+	var name: String = msaa.get_name()
+	Preferences.data['msaa'] = name
+	disable_and_enable_children(msaa)
+	Preferences.adjust_msaa()
+
+
+func connect_children(parent: HBoxContainer, function_name: String):
+	var preference = parent.get_name()
+	
+	for child in parent.get_children():
 		child = child as Button
-		if child.get_name() == Preferences.data["resolution"]:
+		if child.get_name() == Preferences.data[preference]:
 			child.disabled = true
-		child.connect('pressed', self, 'change_resolution', [child])
-		
+		child.connect('pressed', self, function_name, [child])	
+
 
 func change_resolution(resolution: Button) -> void:
 	var name: String = resolution.get_name()
 	Preferences.data['resolution'] = name
-	for child in resolution.get_parent().get_children():
+	disable_and_enable_children(resolution)
+	Preferences.adjust_screen_resolution()
+	
+	
+func disable_and_enable_children(parent: Button) -> void:
+	var name: String = parent.get_name()
+	for child in parent.get_parent().get_children():
 		if child.get_name() == name:
 			child.disabled = true
 		else:
 			child.disabled = false
-	Preferences.adjust_screen_resolution()
 	were_preferences_changed = true
 	
 	
 func change_window_size(window_type: Button) -> void:
 	var name: String = window_type.get_name()
 	Preferences.data["window_type"] = name
-	for child in window_type.get_parent().get_children():
-		if child.get_name() == name:
-			child.disabled = true
-		else:
-			child.disabled = false
+	disable_and_enable_children(window_type)
 	Preferences.adjust_screen_size()
-	were_preferences_changed = true
 	
 	
 func update_all_controls_display() -> void:
@@ -102,7 +184,7 @@ func update_control_display(button: Button) -> void:
 
 func update_control(button: Button) -> void:
 	current_button = button
-	($ButtonChanger as TextureRect).visible = true
+	($ButtonChanger as Button).visible = true
 	accepting_input = true
 	
 	
@@ -156,20 +238,20 @@ func _on_CloseMenus_pressed() -> void:
 
 
 func _on_Confirm_pressed():
-	($ButtonChanger as TextureRect).visible = false
+	($ButtonChanger as Button).visible = false
 	if !accepting_input:
 		were_preferences_changed = true
 		var controls_file: String = "user://custom_controls.controls"
 		Controls.change_control(current_button.get_name(), new_key, controls_file)
 		Controls.set_controls(controls_file)
 		update_control_display(current_button)
-		($ButtonChanger/Label as Label).text = "Push Button\n"
+		($ButtonChanger/Picture/Label as Label).text = "Push Button\n"
 	accepting_input = false
 
 
 func _on_Cancel_pressed():
-	($ButtonChanger as TextureRect).visible = false
-	($ButtonChanger/Label as Label).text = "Push Button\n"
+	($ButtonChanger as Button).visible = false
+	($ButtonChanger/Picture/Label as Label).text = "Push Button\n"
 	accepting_input = false
 
 

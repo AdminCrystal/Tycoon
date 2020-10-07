@@ -19,29 +19,41 @@ func _ready() -> void:
 
 func apply_preferences() -> void:
 	#will read preferences and apply these settings accordingly
-	turn_on_fps_display()
 	turn_on_vsync()
 	
 	#adjust_screen_size()
+	adjust_fps_color()
+	adjust_fps_display_location()
 	adjust_fps_max()
 	adjust_msaa()
 	adjust_screen_resolution()
 	
+	
+func adjust_fps_color() -> void:
+	var fps_display: Label = ($FPSDisplay as Label)
+	var color: Color
+	match data.fps_color:
+		"red":
+			color = Color(255, 0, 0)
+		"blue":
+			color = Color(0, 0, 255)
+		"green":
+			color = Color(0, 255, 0)
+	fps_display.add_color_override("font_color", color)
+	
 
 func adjust_fps_max() -> void:
-	if !data.vsync:
-		Engine.target_fps = data.target_fps
+	Engine.target_fps = data.max_fps
 	
 	
 func adjust_msaa() -> void:
-	(get_tree().get_root() as Viewport).set_msaa(data.msaa)
+	(get_tree().get_root() as Viewport).set_msaa(int(data.msaa))
 	
 	
 func adjust_screen_size() -> void:
 	if data.window_type == "fullscreen":
 		OS.window_fullscreen = true
-		OS.window_borderless = false
-		
+		OS.window_borderless = false	
 	# Borderless does not work perfectly and this is merely a workaround
 	# Enable at your own risk
 #	elif data.window_type == "borderless":
@@ -114,11 +126,12 @@ func create_preferences() -> void:
 	var save_dict: Dictionary = {
 		"controls_file": controls_file,
 		
-		"do_display_fps": false,
-		"vsync": true,
+		"do_display_fps": "Enabled",
+		"vsync": "Enabled",
 		"max_fps": 60,
 		"fps_color": "red",
-		"fps_location": ["left", "top"],
+		"fps_horizontal_location": "left",
+		"fps_vertical_location": "top",
 		
 		#music settings
 		"is_music_muted": false,
@@ -142,7 +155,7 @@ func create_preferences() -> void:
 		"water_quality": "High",
 		"shadow_quality": "High",
 		
-		"msaa": 0,
+		"msaa": '0',
 		"ssao": 0,
 		"anisotropic_filtering": "Off",
 		"motion_blur": false,
@@ -154,13 +167,15 @@ func create_preferences() -> void:
 
 
 func display_fps() -> void:
-	if data.do_display_fps:
+	if data.do_display_fps == "Enabled":
 		#fps_delay is a performance boost
 		fps_delay -= 1
 		if fps_delay == 0:
 			FPSDisplay.text = str(Engine.get_frames_per_second())
 			fps_delay = 10
-		
+	else:
+		FPSDisplay.text = ""
+
 
 func get_preferences() -> void:
 	var file: File = File.new()
@@ -176,28 +191,24 @@ func get_preferences() -> void:
 	data.item_volume = calculate_volume(data.item_volume_original)
 	data.weather_volume = calculate_volume(data.weather_volume_original)
 	
-	data.fps_color = Color(data.fps_color[0], data.fps_color[1], data.fps_color[2])
 
-
-func turn_on_fps_display() -> void:
-	if data.do_display_fps:
-		var fps_display: Label = ($FPSDisplay as Label)
-		fps_display.add_color_override("font_color", data.fps_color)
-		if data.fps_location[0] == "right":
-			fps_display.align = HALIGN_RIGHT
-		else:
-			fps_display.align = HALIGN_LEFT
-		if data.fps_location[1] == "bottom":
-			fps_display.valign = VALIGN_BOTTOM
-		else:
-			fps_display.valign = VALIGN_TOP
+func adjust_fps_display_location() -> void:
+	var fps_display: Label = ($FPSDisplay as Label)
+	if data.fps_horizontal_location == "right":
+		fps_display.align = HALIGN_RIGHT
+	else:
+		fps_display.align = HALIGN_LEFT
+	if data.fps_vertical_location == "bottom":
+		fps_display.valign = VALIGN_BOTTOM
+	else:
+		fps_display.valign = VALIGN_TOP
 
 
 func turn_on_vsync() -> void:
-	if !data.vsync:
+	if data.vsync == "Disabled":
 		OS.vsync_enabled = false
 	else:
-		OS.vsync_enabled = true				
+		OS.vsync_enabled = true
 	
 			
 func update_sound_volume(group: String) -> void:

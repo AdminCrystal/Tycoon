@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Menus/SettingsMenu.gd" type="Script" id=1]
 [ext_resource path="res://Alata-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Fonts/LabelFont.tres" type="DynamicFont" id=3]
-[ext_resource path="res://icon.png" type="Texture" id=4]
+[ext_resource path="res://Menus/BoxOutline.png" type="Texture" id=4]
 [ext_resource path="res://Fonts/DavidLibre-Regular.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://Menus/LabelOutline.png" type="Texture" id=6]
 [ext_resource path="res://Menus/ButtonDisabled.tres" type="StyleBox" id=7]
@@ -11,6 +11,8 @@
 [sub_resource type="DynamicFont" id=1]
 size = 26
 font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxEmpty" id=3]
 
 [sub_resource type="DynamicFont" id=2]
 size = 80
@@ -110,7 +112,6 @@ enabled_focus_mode = 0
 text = "Graphics"
 
 [node name="ControlsScroller" type="ScrollContainer" parent="VBoxContainer/SettingsRow"]
-visible = false
 margin_left = 320.0
 margin_right = 1860.0
 margin_bottom = 630.0
@@ -580,6 +581,7 @@ __meta__ = {
 }
 
 [node name="GraphicsScroller" type="ScrollContainer" parent="VBoxContainer/SettingsRow"]
+visible = false
 margin_left = 320.0
 margin_right = 1860.0
 margin_bottom = 630.0
@@ -1045,8 +1047,9 @@ margin_bottom = 80.0
 rect_min_size = Vector2( 0, 80 )
 size_flags_horizontal = 3
 min_value = 15.0
-max_value = 240.0
+max_value = 245.0
 step = 1.0
+page = 5.0
 value = 15.0
 
 [node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/max_fps/max_fps"]
@@ -1060,14 +1063,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="display_fps" type="HBoxContainer" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics"]
+[node name="do_display_fps" type="HBoxContainer" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics"]
 margin_top = 550.0
 margin_right = 590.0
 margin_bottom = 630.0
 rect_min_size = Vector2( 590, 0 )
 custom_constants/separation = 15
 
-[node name="Enabled" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/display_fps"]
+[node name="Enabled" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/do_display_fps"]
 margin_right = 287.0
 margin_bottom = 80.0
 rect_min_size = Vector2( 0, 80 )
@@ -1076,7 +1079,7 @@ size_flags_horizontal = 3
 custom_styles/disabled = ExtResource( 7 )
 enabled_focus_mode = 0
 
-[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/display_fps/Enabled"]
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/do_display_fps/Enabled"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_fonts/font = ExtResource( 3 )
@@ -1087,7 +1090,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Disabled" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/display_fps"]
+[node name="Disabled" type="Button" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/do_display_fps"]
 margin_left = 302.0
 margin_right = 590.0
 margin_bottom = 80.0
@@ -1097,7 +1100,7 @@ size_flags_horizontal = 3
 custom_styles/disabled = ExtResource( 7 )
 enabled_focus_mode = 0
 
-[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/display_fps/Disabled"]
+[node name="Label" type="Label" parent="VBoxContainer/SettingsRow/GraphicsScroller/GraphicsContainer/Graphics/do_display_fps/Disabled"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_fonts/font = ExtResource( 3 )
@@ -1339,8 +1342,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ButtonChanger" type="TextureRect" parent="."]
+[node name="ButtonChanger" type="Button" parent="."]
 visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+focus_mode = 0
+custom_styles/disabled = SubResource( 3 )
+disabled = true
+enabled_focus_mode = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Picture" type="TextureRect" parent="ButtonChanger"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1356,7 +1370,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="ButtonChanger"]
+[node name="Label" type="Label" parent="ButtonChanger/Picture"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_vertical = 1
@@ -1370,13 +1384,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Confirm" type="Button" parent="ButtonChanger"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -250.0
-margin_top = -69.0
+[node name="Confirm" type="Button" parent="ButtonChanger/Picture"]
+margin_left = 372.0
+margin_top = 439.0
+margin_right = 622.0
+margin_bottom = 480.0
 rect_min_size = Vector2( 250, 0 )
 custom_fonts/font = ExtResource( 3 )
 text = "Confirm"
@@ -1384,11 +1396,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Cancel" type="Button" parent="ButtonChanger"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_top = -69.0
-margin_right = 135.0
+[node name="Cancel" type="Button" parent="ButtonChanger/Picture"]
+margin_top = 439.0
+margin_right = 250.0
+margin_bottom = 480.0
 rect_min_size = Vector2( 250, 0 )
 custom_fonts/font = ExtResource( 3 )
 text = "Cancel"
@@ -1403,5 +1414,5 @@ __meta__ = {
 [connection signal="pressed" from="VBoxContainer/PresetsRow/DvorakControls" to="." method="_on_DvorakControls_pressed"]
 [connection signal="pressed" from="VBoxContainer/PresetsRow/CustomControls" to="." method="_on_CustomControls_pressed"]
 [connection signal="pressed" from="VBoxContainer/Bottom Row/BackButton" to="." method="_on_BackButton_pressed"]
-[connection signal="pressed" from="ButtonChanger/Confirm" to="." method="_on_Confirm_pressed"]
-[connection signal="pressed" from="ButtonChanger/Cancel" to="." method="_on_Cancel_pressed"]
+[connection signal="pressed" from="ButtonChanger/Picture/Confirm" to="." method="_on_Confirm_pressed"]
+[connection signal="pressed" from="ButtonChanger/Picture/Cancel" to="." method="_on_Cancel_pressed"]
