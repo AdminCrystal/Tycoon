@@ -1,7 +1,22 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Menus/MenuFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Fonts/DavidLibre-Regular.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Menus/Menu.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 60
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 60
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 60
+use_filter = true
+font_data = ExtResource( 1 )
 
 [node name="Menu" type="Control"]
 anchor_left = 0.5
@@ -58,7 +73,7 @@ margin_top = 380.0
 margin_right = 617.0
 margin_bottom = 480.0
 rect_min_size = Vector2( 0, 100 )
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = SubResource( 1 )
 text = "Change Controls"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -69,7 +84,7 @@ margin_top = 540.0
 margin_right = 617.0
 margin_bottom = 640.0
 rect_min_size = Vector2( 0, 100 )
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Quit"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -95,7 +110,7 @@ margin_left = 518.0
 margin_right = 618.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 100, 100 )
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = SubResource( 3 )
 text = "X"
 [connection signal="pressed" from="HBoxContainer/CenterSection/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="pressed" from="HBoxContainer/CenterSection/Quit" to="." method="_on_Quit_pressed"]

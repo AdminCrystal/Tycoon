@@ -31,6 +31,7 @@ Preferences="*res://Settings/Preferences.tscn"
 Controls="*res://Settings/Controls.tscn"
 Menu="*res://Menus/Menu.tscn"
 SettingsMenu="*res://Menus/SettingsMenu.tscn"
+EDITOR_ONLY_SCRIPT="*res://Settings/EDITOR_ONLY_SCRIPT.tscn"
 
 [display]
 

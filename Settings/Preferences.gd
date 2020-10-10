@@ -42,6 +42,19 @@ func adjust_fps_color() -> void:
 	fps_display.add_color_override("font_color", color)
 	
 
+func adjust_fps_display_location() -> void:
+	var fps_display: Label = ($FPSDisplay as Label)
+		
+	if data.fps_horizontal_location == "right":
+		fps_display.align = HALIGN_RIGHT
+	else:
+		fps_display.align = HALIGN_LEFT
+	if data.fps_vertical_location == "bottom":
+		fps_display.valign = VALIGN_BOTTOM
+	else:
+		fps_display.valign = VALIGN_TOP
+
+
 func adjust_fps_max() -> void:
 	Engine.target_fps = data.max_fps
 	
@@ -104,14 +117,6 @@ func calculate_volume(sound: float) -> float:
 	return sound_volume
 
 
-func save_preferences() -> void:
-	#changes all preferences
-	var file: File = File.new()
-	var _error = file.open("user://preferences.settings", File.WRITE)	
-	file.store_line(to_json(data))
-	file.close()
-
-
 func create_preferences() -> void:
 	var file: File = File.new()
 	
@@ -164,7 +169,7 @@ func create_preferences() -> void:
 	file.store_line(to_json(save_dict))
 	file.close()
 	save_dict.clear()
-
+	
 
 func display_fps() -> void:
 	if data.do_display_fps == "Enabled":
@@ -175,7 +180,7 @@ func display_fps() -> void:
 			fps_delay = 10
 	else:
 		FPSDisplay.text = ""
-
+		
 
 func get_preferences() -> void:
 	var file: File = File.new()
@@ -191,17 +196,13 @@ func get_preferences() -> void:
 	data.item_volume = calculate_volume(data.item_volume_original)
 	data.weather_volume = calculate_volume(data.weather_volume_original)
 	
-
-func adjust_fps_display_location() -> void:
-	var fps_display: Label = ($FPSDisplay as Label)
-	if data.fps_horizontal_location == "right":
-		fps_display.align = HALIGN_RIGHT
-	else:
-		fps_display.align = HALIGN_LEFT
-	if data.fps_vertical_location == "bottom":
-		fps_display.valign = VALIGN_BOTTOM
-	else:
-		fps_display.valign = VALIGN_TOP
+			
+func save_preferences() -> void:
+	#changes all preferences
+	var file: File = File.new()
+	var _error = file.open("user://preferences.settings", File.WRITE)	
+	file.store_line(to_json(data))
+	file.close()
 
 
 func turn_on_vsync() -> void:

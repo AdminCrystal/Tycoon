@@ -11,11 +11,11 @@ const DE_ACCELERATION = 5
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	camera = $CameraBase/Camera.get_global_transform()
 	
 
-func _input(event):
+func _input(event) -> void:
 	if event.is_action_pressed("right_click"):
 		var location = event.position
 		$CameraBase.rotate_y(5)

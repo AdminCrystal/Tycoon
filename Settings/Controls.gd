@@ -34,7 +34,7 @@ func change_control(key: String, value: String, controls_file: String) -> void:
 	file.close()
 	
 	
-#recreates a fresh dvorak control when they open the game
+#recreates fresh dvorak controls when they open the game
 func create_dvorak_controls() -> void:
 	var file: File = File.new()
 	#if not saveControls.file_exists("user://preferences.settings"):
@@ -55,7 +55,6 @@ func create_dvorak_controls() -> void:
 		"right_arrow": "Right",
 		#End Defaults
 		
-	
 		
 		#Mouse actions
 		"left_click": "LeftClick",
@@ -66,7 +65,6 @@ func create_dvorak_controls() -> void:
 		"scroll_right": "ScrollWheelRight",
 		#End Mouse Actions
 		
-
 
 		#Row 0 (function keys)
 		"f1": "F1",
@@ -88,7 +86,6 @@ func create_dvorak_controls() -> void:
 		#End Row 0 (function keys)
 
 
-
 		#WARNING 
 		#MISSING TILDE
 		#Row 1
@@ -106,7 +103,6 @@ func create_dvorak_controls() -> void:
 		"equals": "BraceRight",
 		"backspace": "BackSpace",
 		#End Row 1
-		
 		
 		
 		#Row 2
@@ -127,7 +123,6 @@ func create_dvorak_controls() -> void:
 		#End Row 2
 		
 		
-		
 		#Row 3
 		"caps_lock": "Capslock",
 		"a": "a",
@@ -145,7 +140,6 @@ func create_dvorak_controls() -> void:
 		#End Row 3
 		
 		
-		
 		#Row 4
 		"shift": "Shift",
 		"z": "SemiColon",
@@ -161,13 +155,11 @@ func create_dvorak_controls() -> void:
 		#End Row 4
 		
 		
-		
 		#Row 5
 		"ctrl": "Control",
 		"alt": "Alt",
 		"space": "Space",
 		#End Row 5
-		
 		
 		
 		#Special keys (right side of keyboard)
@@ -190,11 +182,17 @@ func create_dvorak_controls() -> void:
 		
 	}
 	file.store_line(to_json(save_dict))
-	file.close()	
+	file.close()
+	
+	# verifies keys are same
+	if OS.is_debug_build():
+		for key in save_dict.keys():
+			EDITOR_ONLY_SCRIPT.dvorak_controls_key_verification += key
 	save_dict.clear()
 	
+	
 
-#recreates fresh standard controls every time they open the game
+# recreates fresh standard controls every time they open the game
 func create_standard_controls() -> void:
 	var save_dict: Dictionary = {
 		"move_forward": "w",
@@ -212,7 +210,6 @@ func create_standard_controls() -> void:
 		#End Defaults
 		
 	
-		
 		#Mouse actions
 		"left_click": "LeftClick",
 		"right_click": "RightClick",
@@ -222,7 +219,6 @@ func create_standard_controls() -> void:
 		"scroll_right": "ScrollWheelRight",
 		#End Mouse Actions
 		
-
 
 		#Row 0 (function keys)
 		"f1": "F1",
@@ -244,7 +240,6 @@ func create_standard_controls() -> void:
 		#End Row 0 (function keys)
 
 
-
 		#WARNING 
 		#MISSING TILDE
 		#Row 1
@@ -262,7 +257,6 @@ func create_standard_controls() -> void:
 		"equals": "Equal",
 		"backspace": "BackSpace",
 		#End Row 1
-		
 		
 		
 		#Row 2
@@ -283,7 +277,6 @@ func create_standard_controls() -> void:
 		#End Row 2
 		
 		
-		
 		#Row 3
 		"caps_lock": "Capslock",
 		"a": "a",
@@ -301,7 +294,6 @@ func create_standard_controls() -> void:
 		#End Row 3
 		
 		
-		
 		#Row 4
 		"shift": "Shift",
 		"z": "z",
@@ -317,13 +309,11 @@ func create_standard_controls() -> void:
 		#End Row 4
 		
 		
-		
 		#Row 5
 		"ctrl": "Control",
 		"alt": "Alt",
 		"space": "Space",
 		#End Row 5
-		
 		
 		
 		#Special keys (right side of keyboard)
@@ -347,7 +337,6 @@ func create_standard_controls() -> void:
 		
 	}
 	var file: File = File.new()
-	#if not saveControls.file_exists("user://preferences.settings"):
 	var _error = file.open("user://standard_controls.controls", File.WRITE)
 	file.store_line(to_json(save_dict))
 	file.close()
@@ -356,6 +345,11 @@ func create_standard_controls() -> void:
 	_error = file.open("user://custom_controls.controls", File.WRITE)
 	file.store_line(to_json(save_dict))
 	file.close()
+	
+	# checks to make sure keys are correct
+	if OS.is_debug_build():
+		for key in save_dict.keys():
+			EDITOR_ONLY_SCRIPT.standard_controls_key_verification += key
 	save_dict.clear()
 	
 
@@ -368,9 +362,9 @@ func get_controls() -> String:
 		Preferences.create_preferences()
 	var _error = file.open("user://preferences.settings", File.READ)
 	var data: Dictionary = parse_json(file.get_line())
+	file.close()
 	
 	var location: String = data.controls_file
-	file.close()
 	data.clear()
 	return location
 
@@ -420,17 +414,6 @@ func set_controls(filepath: String) -> void:
 	
 	file.close()
 	
-
-
-
-
-
-
-
-
-
-
-
 
 
 
